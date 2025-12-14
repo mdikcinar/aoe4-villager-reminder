@@ -60,6 +60,46 @@
   "game_detected": "Game detected",
   "game_ended": "Game ended",
   "waiting_for_game": "Waiting for game...",
-  "checking_api": "Checking API..."
+  "checking_api": "Checking API...",
+  
+  "stats_current_session": "Current Session",
+  "stats_today": "Today",
+  "stats_all_time": "Total",
+  "stats_alert": "Alert",
+  "stats_duration": "Duration",
+  "stats_session_count": "Session",
+  "stats_avg_per_session": "Avg/Session",
+  "btn_reset": "Reset",
+  "stats_reset_title": "Reset",
+  "stats_reset_message": "All statistics will be deleted. Are you sure?",
+  
+  "time_format_hours": "h",
+  "time_format_minutes": "m",
+  "time_format_seconds": "s",
+  "time_format_short_hours": "h",
+  "time_format_short_minutes": "m",
+  
+  "detection_error_profile_required": "❌ Error: Profile ID required!",
+  "detection_api_active": "🔍 API detection active (checking every {interval}s)",
+  "detection_manual_mode": "Manual mode - Press Start",
+  "detection_stopped": "Detection stopped",
+  "detection_checking_api": "🔄 Checking API...",
+  "detection_api_check_complete": "✅ API check complete - no match, waiting...",
+  "detection_profile_not_found": "⚠️ Profile ID not found - please check",
+  "detection_api_error": "⚠️ API error: {code} - retrying...",
+  "detection_api_timeout": "⏱️ API timeout - retrying...",
+  "detection_connection_error": "🌐 Connection error - check your internet connection",
+  "detection_api_connection_error": "⚠️ API connection error: {error}...",
+  "detection_api_check_error": "❌ API check error: {error}...",
+  "detection_match_started": "🎮 Match started! Starting timer...",
+  "detection_match_ended": "🏁 Match ended - waiting for new match...",
+  "detection_waiting_for_game": "🎮 Waiting for game to start...",
+  "detection_game_exe_detected": "✅ Game detected! Starting API checks...",
+  "detection_game_exe_closed": "🔴 Game closed - waiting for game to start...",
+  
+  "notification_villager_title": "Villager Produce!",
+  "notification_villager_message": "Time to produce villagers!",
+  "notification_test_title": "Test",
+  "notification_test_message": "This is a test notification!"
 }
 

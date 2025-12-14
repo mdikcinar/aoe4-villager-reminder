@@ -344,6 +344,7 @@ class MainWindow(QMainWindow):
         self._retranslate_ui()
         self._timer_panel.retranslate_ui()
         self._settings_panel.retranslate_ui()
+        self._stats_panel.retranslate_ui()
         self._overlay.retranslate_ui()
     
     def _retranslate_ui(self):

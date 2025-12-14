@@ -60,6 +60,46 @@
   "game_detected": "Oyun algılandı",
   "game_ended": "Oyun bitti",
   "waiting_for_game": "Oyun bekleniyor...",
-  "checking_api": "API kontrol ediliyor..."
+  "checking_api": "API kontrol ediliyor...",
+  
+  "stats_current_session": "Mevcut Oturum",
+  "stats_today": "Bugün",
+  "stats_all_time": "Toplam",
+  "stats_alert": "Uyarı",
+  "stats_duration": "Süre",
+  "stats_session_count": "Oturum",
+  "stats_avg_per_session": "Ort/Otrm",
+  "btn_reset": "Sıfırla",
+  "stats_reset_title": "Sıfırla",
+  "stats_reset_message": "Tüm istatistikler silinecek. Emin misiniz?",
+  
+  "time_format_hours": "s",
+  "time_format_minutes": "dk",
+  "time_format_seconds": "sn",
+  "time_format_short_hours": "s",
+  "time_format_short_minutes": "dk",
+  
+  "detection_error_profile_required": "❌ Hata: Profile ID gerekli!",
+  "detection_api_active": "🔍 API algılama aktif (her {interval}s kontrol)",
+  "detection_manual_mode": "Manuel mod - Start'a basın",
+  "detection_stopped": "Algılama durduruldu",
+  "detection_checking_api": "🔄 API kontrol ediliyor...",
+  "detection_api_check_complete": "✅ API kontrolü tamamlandı - maç yok, bekleniyor...",
+  "detection_profile_not_found": "⚠️ Profile ID bulunamadı - lütfen kontrol edin",
+  "detection_api_error": "⚠️ API hatası: {code} - tekrar deneniyor...",
+  "detection_api_timeout": "⏱️ API zaman aşımı - tekrar deneniyor...",
+  "detection_connection_error": "🌐 Bağlantı hatası - internet bağlantınızı kontrol edin",
+  "detection_api_connection_error": "⚠️ API bağlantı hatası: {error}...",
+  "detection_api_check_error": "❌ API kontrol hatası: {error}...",
+  "detection_match_started": "🎮 Maç başladı! Timer başlatılıyor...",
+  "detection_match_ended": "🏁 Maç bitti - yeni maç bekleniyor...",
+  "detection_waiting_for_game": "🎮 Oyun açılması bekleniyor...",
+  "detection_game_exe_detected": "✅ Oyun algılandı! API kontrolleri başlatılıyor...",
+  "detection_game_exe_closed": "🔴 Oyun kapandı - oyun açılması bekleniyor...",
+  
+  "notification_villager_title": "Villager Üret!",
+  "notification_villager_message": "Köylü üretme zamanı!",
+  "notification_test_title": "Test",
+  "notification_test_message": "Bu bir test bildirimidir!"
 }
 

@@ -11,6 +11,10 @@ MAX_INTERVAL = 60
 AOE4_API_URL = "https://aoe4world.com/api/v0/players/{profile_id}/games/last"
 API_CHECK_INTERVAL = 10000  # ms (check every 10 seconds for match status)
 
+# Game executable detection
+AOE4_EXECUTABLE = "RelicCardinal.exe"
+PROCESS_CHECK_INTERVAL = 10000  # ms (check every 10 seconds if game is running)
+
 # Detection modes
 DETECTION_MODE_API = "api"
 DETECTION_MODE_MANUAL = "manual"

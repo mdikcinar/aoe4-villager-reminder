@@ -26,6 +26,7 @@ from src.ui.settings_panel import SettingsPanel
 from src.ui.statistics_panel import StatisticsPanel
 from src.ui.styles import DARK_THEME
 from src.services.stats_tracker import StatsTracker
+from src.utils.localization import tr
 
 
 def get_golden_dir():
@@ -76,7 +77,7 @@ def generate_timer_panel_image():
     """Generate timer panel screenshot."""
     panel = TimerPanel()
     panel.update_timer(25, 25)  # Set initial state
-    panel.set_status("Ready")
+    panel.set_status(tr("timer_ready"))
     
     container = create_styled_container(panel, 380, 420)
     return capture_widget(container, 'timer_panel.png')
@@ -141,7 +142,7 @@ class TestGoldenImages:
         """Generate timer panel screenshot."""
         panel = TimerPanel()
         panel.update_timer(25, 25)
-        panel.set_status("Ready")
+        panel.set_status(tr("timer_ready"))
         
         container = create_styled_container(panel, 380, 420)
         filepath = capture_widget(container, 'timer_panel.png')

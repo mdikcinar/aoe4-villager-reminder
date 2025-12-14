@@ -3,6 +3,7 @@ import sys
 from PyQt6.QtCore import QObject, pyqtSignal
 from PyQt6.QtWidgets import QSystemTrayIcon, QApplication
 from typing import Optional
+from ..utils.localization import tr
 
 # Initialize pygame mixer for sound
 import pygame
@@ -72,8 +73,13 @@ class NotificationService(QObject):
         if os.path.exists(path):
             self._sound_file = path
     
-    def notify(self, title: str = "Villager Üret!", message: str = "Köylü üretme zamanı!"):
+    def notify(self, title: str = None, message: str = None):
         """Send notification (sound and/or popup)."""
+        if title is None:
+            title = tr("notification_villager_title")
+        if message is None:
+            message = tr("notification_villager_message")
+        
         if self._sound_enabled:
             self._play_sound()
         
@@ -112,6 +118,6 @@ class NotificationService(QObject):
     
     def test_popup(self):
         """Show a test popup."""
-        self._show_popup("Test", "Bu bir test bildirimidir!")
+        self._show_popup(tr("notification_test_title"), tr("notification_test_message"))
 
 

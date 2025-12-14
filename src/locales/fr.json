@@ -60,6 +60,46 @@
   "game_detected": "Jeu détecté",
   "game_ended": "Jeu terminé",
   "waiting_for_game": "En attente du jeu...",
-  "checking_api": "Vérification de l'API..."
+  "checking_api": "Vérification de l'API...",
+  
+  "stats_current_session": "Session actuelle",
+  "stats_today": "Aujourd'hui",
+  "stats_all_time": "Total",
+  "stats_alert": "Alerte",
+  "stats_duration": "Durée",
+  "stats_session_count": "Session",
+  "stats_avg_per_session": "Moy/Session",
+  "btn_reset": "Réinitialiser",
+  "stats_reset_title": "Réinitialiser",
+  "stats_reset_message": "Toutes les statistiques seront supprimées. Êtes-vous sûr?",
+  
+  "time_format_hours": "h",
+  "time_format_minutes": "min",
+  "time_format_seconds": "s",
+  "time_format_short_hours": "h",
+  "time_format_short_minutes": "min",
+  
+  "detection_error_profile_required": "❌ Erreur: ID de profil requis!",
+  "detection_api_active": "🔍 Détection API active (vérification toutes les {interval}s)",
+  "detection_manual_mode": "Mode manuel - Appuyez sur Démarrer",
+  "detection_stopped": "Détection arrêtée",
+  "detection_checking_api": "🔄 Vérification de l'API...",
+  "detection_api_check_complete": "✅ Vérification API terminée - pas de match, attente...",
+  "detection_profile_not_found": "⚠️ ID de profil introuvable - veuillez vérifier",
+  "detection_api_error": "⚠️ Erreur API: {code} - nouvelle tentative...",
+  "detection_api_timeout": "⏱️ Délai d'attente API dépassé - nouvelle tentative...",
+  "detection_connection_error": "🌐 Erreur de connexion - vérifiez votre connexion Internet",
+  "detection_api_connection_error": "⚠️ Erreur de connexion API: {error}...",
+  "detection_api_check_error": "❌ Erreur de vérification API: {error}...",
+  "detection_match_started": "🎮 Match démarré! Démarrage du minuteur...",
+  "detection_match_ended": "🏁 Match terminé - attente d'un nouveau match...",
+  "detection_waiting_for_game": "🎮 En attente du démarrage du jeu...",
+  "detection_game_exe_detected": "✅ Jeu détecté! Démarrage des vérifications API...",
+  "detection_game_exe_closed": "🔴 Jeu fermé - en attente du démarrage du jeu...",
+  
+  "notification_villager_title": "Produire des villageois!",
+  "notification_villager_message": "Il est temps de produire des villageois!",
+  "notification_test_title": "Test",
+  "notification_test_message": "Ceci est une notification de test!"
 }
 

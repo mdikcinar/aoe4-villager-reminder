@@ -60,6 +60,46 @@
   "game_detected": "Juego detectado",
   "game_ended": "Juego terminado",
   "waiting_for_game": "Esperando juego...",
-  "checking_api": "Verificando API..."
+  "checking_api": "Verificando API...",
+  
+  "stats_current_session": "Sesión actual",
+  "stats_today": "Hoy",
+  "stats_all_time": "Total",
+  "stats_alert": "Alerta",
+  "stats_duration": "Duración",
+  "stats_session_count": "Sesión",
+  "stats_avg_per_session": "Prom/Sesión",
+  "btn_reset": "Restablecer",
+  "stats_reset_title": "Restablecer",
+  "stats_reset_message": "Se eliminarán todas las estadísticas. ¿Estás seguro?",
+  
+  "time_format_hours": "h",
+  "time_format_minutes": "min",
+  "time_format_seconds": "s",
+  "time_format_short_hours": "h",
+  "time_format_short_minutes": "min",
+  
+  "detection_error_profile_required": "❌ Error: ¡Se requiere ID de perfil!",
+  "detection_api_active": "🔍 Detección API activa (verificando cada {interval}s)",
+  "detection_manual_mode": "Modo manual - Presiona Iniciar",
+  "detection_stopped": "Detección detenida",
+  "detection_checking_api": "🔄 Verificando API...",
+  "detection_api_check_complete": "✅ Verificación API completa - sin partida, esperando...",
+  "detection_profile_not_found": "⚠️ ID de perfil no encontrado - por favor verifica",
+  "detection_api_error": "⚠️ Error de API: {code} - reintentando...",
+  "detection_api_timeout": "⏱️ Tiempo de espera de API agotado - reintentando...",
+  "detection_connection_error": "🌐 Error de conexión - verifica tu conexión a Internet",
+  "detection_api_connection_error": "⚠️ Error de conexión API: {error}...",
+  "detection_api_check_error": "❌ Error de verificación API: {error}...",
+  "detection_match_started": "🎮 ¡Partida iniciada! Iniciando temporizador...",
+  "detection_match_ended": "🏁 Partida terminada - esperando nueva partida...",
+  "detection_waiting_for_game": "🎮 Esperando que inicie el juego...",
+  "detection_game_exe_detected": "✅ ¡Juego detectado! Iniciando verificaciones API...",
+  "detection_game_exe_closed": "🔴 Juego cerrado - esperando que inicie el juego...",
+  
+  "notification_villager_title": "¡Producir aldeanos!",
+  "notification_villager_message": "¡Es hora de producir aldeanos!",
+  "notification_test_title": "Prueba",
+  "notification_test_message": "¡Esta es una notificación de prueba!"
 }
 

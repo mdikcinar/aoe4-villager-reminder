@@ -1,9 +1,10 @@
 from PyQt6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QLabel, 
-    QGroupBox, QPushButton, QGridLayout, QFrame
+    QGroupBox, QPushButton, QGridLayout, QFrame, QMessageBox
 )
 from PyQt6.QtCore import Qt, QTimer
 from ..services.stats_tracker import StatsTracker
+from ..utils.localization import tr
 
 
 class StatCard(QFrame):
@@ -51,58 +52,78 @@ class StatisticsPanel(QWidget):
         self._refresh_timer.timeout.connect(self._update_session_stats)
         self._refresh_timer.start(1000)
     
+    def retranslate_ui(self):
+        """Retranslate all UI strings (called when language changes)."""
+        # Update group titles
+        self.session_group.setTitle(tr("stats_current_session"))
+        self.today_group.setTitle(tr("stats_today"))
+        self.alltime_group.setTitle(tr("stats_all_time"))
+        
+        # Update stat card titles
+        self.session_alerts_card.title_label.setText(tr("stats_alert"))
+        self.session_duration_card.title_label.setText(tr("stats_duration"))
+        self.today_alerts_card.title_label.setText(tr("stats_alert"))
+        self.today_time_card.title_label.setText(tr("stats_duration"))
+        self.today_sessions_card.title_label.setText(tr("stats_session_count"))
+        self.total_alerts_card.title_label.setText(tr("stats_alert"))
+        self.total_time_card.title_label.setText(tr("stats_duration"))
+        self.avg_alerts_card.title_label.setText(tr("stats_avg_per_session"))
+        
+        # Update button
+        self.reset_btn.setText(tr("btn_reset"))
+    
     def _setup_ui(self):
         layout = QVBoxLayout(self)
         layout.setContentsMargins(10, 10, 10, 10)
         layout.setSpacing(12)
         
         # Current Session
-        session_group = QGroupBox("Mevcut Oturum")
-        session_group.setStyleSheet("QGroupBox { font-size: 11px; }")
-        session_layout = QHBoxLayout(session_group)
+        self.session_group = QGroupBox(tr("stats_current_session"))
+        self.session_group.setStyleSheet("QGroupBox { font-size: 11px; }")
+        session_layout = QHBoxLayout(self.session_group)
         session_layout.setSpacing(8)
         
-        self.session_alerts_card = StatCard("Uyarı")
+        self.session_alerts_card = StatCard(tr("stats_alert"))
         session_layout.addWidget(self.session_alerts_card)
         
-        self.session_duration_card = StatCard("Süre")
+        self.session_duration_card = StatCard(tr("stats_duration"))
         session_layout.addWidget(self.session_duration_card)
         
-        layout.addWidget(session_group)
+        layout.addWidget(self.session_group)
         
         # Today
-        today_group = QGroupBox("Bugün")
-        today_group.setStyleSheet("QGroupBox { font-size: 11px; }")
-        today_layout = QHBoxLayout(today_group)
+        self.today_group = QGroupBox(tr("stats_today"))
+        self.today_group.setStyleSheet("QGroupBox { font-size: 11px; }")
+        today_layout = QHBoxLayout(self.today_group)
         today_layout.setSpacing(8)
         
-        self.today_alerts_card = StatCard("Uyarı")
+        self.today_alerts_card = StatCard(tr("stats_alert"))
         today_layout.addWidget(self.today_alerts_card)
         
-        self.today_time_card = StatCard("Süre")
+        self.today_time_card = StatCard(tr("stats_duration"))
         today_layout.addWidget(self.today_time_card)
         
-        self.today_sessions_card = StatCard("Oturum")
+        self.today_sessions_card = StatCard(tr("stats_session_count"))
         today_layout.addWidget(self.today_sessions_card)
         
-        layout.addWidget(today_group)
+        layout.addWidget(self.today_group)
         
         # All Time
-        alltime_group = QGroupBox("Toplam")
-        alltime_group.setStyleSheet("QGroupBox { font-size: 11px; }")
-        alltime_layout = QHBoxLayout(alltime_group)
+        self.alltime_group = QGroupBox(tr("stats_all_time"))
+        self.alltime_group.setStyleSheet("QGroupBox { font-size: 11px; }")
+        alltime_layout = QHBoxLayout(self.alltime_group)
         alltime_layout.setSpacing(8)
         
-        self.total_alerts_card = StatCard("Uyarı")
+        self.total_alerts_card = StatCard(tr("stats_alert"))
         alltime_layout.addWidget(self.total_alerts_card)
         
-        self.total_time_card = StatCard("Süre")
+        self.total_time_card = StatCard(tr("stats_duration"))
         alltime_layout.addWidget(self.total_time_card)
         
-        self.avg_alerts_card = StatCard("Ort/Otrm")
+        self.avg_alerts_card = StatCard(tr("stats_avg_per_session"))
         alltime_layout.addWidget(self.avg_alerts_card)
         
-        layout.addWidget(alltime_group)
+        layout.addWidget(self.alltime_group)
         
         layout.addStretch()
         
@@ -110,14 +131,15 @@ class StatisticsPanel(QWidget):
         reset_layout = QHBoxLayout()
         reset_layout.addStretch()
         
-        self.reset_btn = QPushButton("Sıfırla")
-        self.reset_btn.setFixedSize(70, 28)
+        self.reset_btn = QPushButton(tr("btn_reset"))
+        self.reset_btn.setFixedSize(90, 28)
         self.reset_btn.setStyleSheet("""
             QPushButton {
                 background-color: #6a040f;
                 border: none;
                 border-radius: 4px;
                 font-size: 11px;
+                padding: 4px 8px;
             }
             QPushButton:hover {
                 background-color: #9d0208;
@@ -157,17 +179,15 @@ class StatisticsPanel(QWidget):
         minutes = int((seconds % 3600) // 60)
         
         if hours > 0:
-            return f"{hours}s{minutes}d"
+            return f"{hours}{tr('time_format_short_hours')}{minutes}{tr('time_format_short_minutes')}"
         else:
-            return f"{minutes}dk"
+            return f"{minutes}{tr('time_format_short_minutes')}"
     
     def _on_reset_clicked(self):
-        from PyQt6.QtWidgets import QMessageBox
-        
         reply = QMessageBox.question(
             self,
-            "Sıfırla",
-            "Tüm istatistikler silinecek. Emin misiniz?",
+            tr("stats_reset_title"),
+            tr("stats_reset_message"),
             QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
             QMessageBox.StandardButton.No
         )

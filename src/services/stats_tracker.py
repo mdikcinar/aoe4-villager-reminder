@@ -4,6 +4,7 @@ from datetime import datetime, date
 from typing import Dict, List, Any, Optional
 from PyQt6.QtCore import QObject, pyqtSignal
 from ..utils.constants import STATS_FILE
+from ..utils.localization import tr
 
 
 class StatsTracker(QObject):
@@ -170,11 +171,11 @@ class StatsTracker(QObject):
         secs = int(seconds % 60)
         
         if hours > 0:
-            return f"{hours}s {minutes}dk {secs}sn"
+            return f"{hours}{tr('time_format_hours')} {minutes}{tr('time_format_minutes')} {secs}{tr('time_format_seconds')}"
         elif minutes > 0:
-            return f"{minutes}dk {secs}sn"
+            return f"{minutes}{tr('time_format_minutes')} {secs}{tr('time_format_seconds')}"
         else:
-            return f"{secs}sn"
+            return f"{secs}{tr('time_format_seconds')}"
     
     def reset_all_stats(self):
         """Reset all statistics."""

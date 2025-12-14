@@ -60,6 +60,46 @@
   "game_detected": "Spiel erkannt",
   "game_ended": "Spiel beendet",
   "waiting_for_game": "Warte auf Spiel...",
-  "checking_api": "Überprüfe API..."
+  "checking_api": "Überprüfe API...",
+  
+  "stats_current_session": "Aktuelle Sitzung",
+  "stats_today": "Heute",
+  "stats_all_time": "Gesamt",
+  "stats_alert": "Alarm",
+  "stats_duration": "Dauer",
+  "stats_session_count": "Sitzung",
+  "stats_avg_per_session": "Ø/Sitzung",
+  "btn_reset": "Zurücksetzen",
+  "stats_reset_title": "Zurücksetzen",
+  "stats_reset_message": "Alle Statistiken werden gelöscht. Sind Sie sicher?",
+  
+  "time_format_hours": "Std",
+  "time_format_minutes": "Min",
+  "time_format_seconds": "Sek",
+  "time_format_short_hours": "Std",
+  "time_format_short_minutes": "Min",
+  
+  "detection_error_profile_required": "❌ Fehler: Profil-ID erforderlich!",
+  "detection_api_active": "🔍 API-Erkennung aktiv (prüft alle {interval}s)",
+  "detection_manual_mode": "Manueller Modus - Start drücken",
+  "detection_stopped": "Erkennung gestoppt",
+  "detection_checking_api": "🔄 API wird überprüft...",
+  "detection_api_check_complete": "✅ API-Prüfung abgeschlossen - kein Spiel, warte...",
+  "detection_profile_not_found": "⚠️ Profil-ID nicht gefunden - bitte überprüfen",
+  "detection_api_error": "⚠️ API-Fehler: {code} - wiederhole...",
+  "detection_api_timeout": "⏱️ API-Zeitüberschreitung - wiederhole...",
+  "detection_connection_error": "🌐 Verbindungsfehler - Internetverbindung überprüfen",
+  "detection_api_connection_error": "⚠️ API-Verbindungsfehler: {error}...",
+  "detection_api_check_error": "❌ API-Prüfungsfehler: {error}...",
+  "detection_match_started": "🎮 Spiel gestartet! Timer wird gestartet...",
+  "detection_match_ended": "🏁 Spiel beendet - warte auf neues Spiel...",
+  "detection_waiting_for_game": "🎮 Warte auf Spielstart...",
+  "detection_game_exe_detected": "✅ Spiel erkannt! Starte API-Prüfungen...",
+  "detection_game_exe_closed": "🔴 Spiel geschlossen - warte auf Spielstart...",
+  
+  "notification_villager_title": "Dorfbewohner produzieren!",
+  "notification_villager_message": "Zeit, Dorfbewohner zu produzieren!",
+  "notification_test_title": "Test",
+  "notification_test_message": "Dies ist eine Testbenachrichtigung!"
 }
 
