@@ -231,6 +231,13 @@ class MainWindow(QMainWindow):
         
         # Overlay
         self._overlay.closed.connect(self._on_overlay_closed)
+        self._overlay.start_clicked.connect(self._on_start_clicked)
+        self._overlay.pause_clicked.connect(self._on_pause_clicked)
+        self._overlay.stop_clicked.connect(self._on_stop_clicked)
+        
+        # Connect pause/resume to overlay as well
+        self._timer_service.paused.connect(lambda: self._overlay.set_paused(True))
+        self._timer_service.resumed.connect(lambda: self._overlay.set_paused(False))
     
     def _apply_settings(self):
         """Apply settings from config."""
