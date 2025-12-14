@@ -190,7 +190,7 @@ class OverlayWidget(QWidget):
         self._start_btn.clicked.connect(self.start_clicked.emit)
         controls.addWidget(self._start_btn)
         
-        self._stop_btn = QPushButton("⏹")
+        self._stop_btn = QPushButton("■")
         self._stop_btn.setFixedSize(24, 20)
         self._stop_btn.setFlat(True)
         self._stop_btn.setEnabled(False)
