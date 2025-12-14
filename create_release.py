@@ -66,18 +66,34 @@ def check_dependencies():
     return missing
 
 
+def run_command_live(cmd, shell=False):
+    """Run command and show output in real-time"""
+    try:
+        if isinstance(cmd, str) and not shell:
+            cmd = cmd.split()
+        result = subprocess.run(
+            cmd,
+            shell=shell,
+            check=False
+        )
+        return result.returncode == 0
+    except FileNotFoundError:
+        return False
+
+
 def build_executable():
     """Build the executable"""
     print("\n[1/5] Building executable...")
+    print("(This may take a few minutes...)\n")
     
     if os.name == 'nt':  # Windows
-        success, _, error = run_command('build.bat', shell=True, check=False)
+        success = run_command_live('build.bat', shell=True)
     else:
         # Alternative for Linux/Mac
-        success, _, error = run_command('python -m PyInstaller build.spec --clean', check=False)
+        success = run_command_live('python -m PyInstaller build.spec --clean')
     
     if not success:
-        print(f"[ERROR] Build failed!\n{error}")
+        print("[ERROR] Build failed!")
         return False
     
     exe_path = Path("dist/AoE4VillagerReminder.exe")
