@@ -27,7 +27,6 @@ a = Analysis(
     binaries=[],
     datas=[
         ('assets/sounds', 'assets/sounds'),
-        ('assets/icons', 'assets/icons'),
         ('src/locales', 'src/locales'),
     ],
     hiddenimports=[
