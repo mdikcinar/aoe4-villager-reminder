@@ -8,6 +8,7 @@ import requests
 import json
 from datetime import datetime
 
+
 def test_aoe4_api(profile_id: str = "12345678"):
     """Test AoE4World API for a given profile ID."""
     
