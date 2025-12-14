@@ -5,7 +5,7 @@ from .constants import (
     CONFIG_FILE, 
     DEFAULT_INTERVAL, 
     DEFAULT_VOLUME,
-    DETECTION_MODE_PROCESS
+    DETECTION_MODE_API
 )
 
 
@@ -16,7 +16,7 @@ class Config:
     _defaults = {
         "interval": DEFAULT_INTERVAL,
         "volume": DEFAULT_VOLUME,
-        "detection_mode": DETECTION_MODE_PROCESS,
+        "detection_mode": DETECTION_MODE_API,
         "profile_id": None,
         "sound_enabled": True,
         "popup_enabled": True,

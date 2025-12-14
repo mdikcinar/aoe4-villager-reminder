@@ -52,7 +52,7 @@ class MainWindow(QMainWindow):
         self.setWindowTitle(f"{APP_NAME}")
         
         # Fixed size - no resizing allowed
-        self.setFixedSize(380, 480)
+        self.setFixedSize(380, 520)
         
         # Apply dark theme
         self.setStyleSheet(DARK_THEME)
@@ -237,7 +237,7 @@ class MainWindow(QMainWindow):
         self._notification_service.sound_enabled = self._config.get("sound_enabled", True)
         self._notification_service.popup_enabled = self._config.get("popup_enabled", True)
         
-        self._game_detector.mode = self._config.get("detection_mode", "process")
+        self._game_detector.mode = self._config.get("detection_mode", "api")
         profile_id = self._config.get("profile_id")
         if profile_id:
             self._game_detector.profile_id = str(profile_id)
@@ -266,6 +266,11 @@ class MainWindow(QMainWindow):
     
     def _on_game_started(self):
         """Handle game start detection."""
+        # Auto-open overlay when match starts
+        if not self._overlay.isVisible():
+            self._overlay.show()
+            self._timer_panel.overlay_btn.setText("Gizle")
+        
         if self._settings_panel.auto_start_enabled:
             self._timer_service.start()
             self._stats_tracker.start_session()
@@ -314,6 +319,14 @@ class MainWindow(QMainWindow):
     def _on_profile_id_changed(self, profile_id: str):
         """Handle profile ID change."""
         self._game_detector.profile_id = profile_id if profile_id else None
+        # Restart detection if API mode is active
+        if self._game_detector.mode == "api" and self._settings_panel.auto_start_enabled:
+            if profile_id:
+                # Stop current detection and restart with new profile ID
+                was_detecting = self._game_detector.is_detecting
+                if was_detecting:
+                    self._game_detector.stop_detection()
+                self._game_detector.start_detection()
     
     def _on_always_on_top_changed(self, enabled: bool):
         """Handle always on top change."""

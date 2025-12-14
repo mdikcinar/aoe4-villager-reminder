@@ -6,7 +6,7 @@ from PyQt6.QtWidgets import (
 from PyQt6.QtCore import Qt, pyqtSignal
 from ..utils.constants import (
     MIN_INTERVAL, MAX_INTERVAL, DEFAULT_INTERVAL,
-    DETECTION_MODE_PROCESS, DETECTION_MODE_API, DETECTION_MODE_MANUAL
+    DETECTION_MODE_API, DETECTION_MODE_MANUAL
 )
 from ..utils.config import Config
 
@@ -34,8 +34,8 @@ class SettingsPanel(QWidget):
     
     def _setup_ui(self):
         layout = QVBoxLayout(self)
-        layout.setContentsMargins(10, 10, 10, 10)
-        layout.setSpacing(12)
+        layout.setContentsMargins(10, 8, 10, 8)
+        layout.setSpacing(8)
         
         # Timer Settings
         timer_group = QGroupBox("Zamanlayıcı")
@@ -61,18 +61,24 @@ class SettingsPanel(QWidget):
         
         # Quick presets
         preset_row = QHBoxLayout()
+        preset_label = QLabel("Hızlı:")
+        preset_label.setStyleSheet("color: #b0b0b0; font-size: 10px;")
+        preset_row.addWidget(preset_label)
         for seconds in [20, 25, 30, 35]:
-            btn = QPushButton(f"{seconds}")
-            btn.setFixedSize(40, 24)
+            btn = QPushButton(f"{seconds}s")
+            btn.setFixedSize(45, 24)
             btn.setStyleSheet("""
                 QPushButton {
                     background-color: #3d3d5c;
+                    color: #eaeaea;
                     border: none;
                     border-radius: 4px;
-                    font-size: 11px;
+                    font-size: 10px;
+                    font-weight: bold;
                 }
                 QPushButton:hover {
                     background-color: #4d4d6c;
+                    color: #ffd700;
                 }
             """)
             btn.clicked.connect(lambda checked, s=seconds: self._set_interval(s))
@@ -86,7 +92,7 @@ class SettingsPanel(QWidget):
         detection_group = QGroupBox("Oyun Algılama")
         detection_group.setStyleSheet("QGroupBox { font-size: 11px; }")
         detection_layout = QVBoxLayout(detection_group)
-        detection_layout.setSpacing(8)
+        detection_layout.setSpacing(6)
         
         # Mode combo
         mode_row = QHBoxLayout()
@@ -94,8 +100,7 @@ class SettingsPanel(QWidget):
         
         self.detection_combo = QComboBox()
         self.detection_combo.setFixedHeight(28)
-        self.detection_combo.addItem("Process", DETECTION_MODE_PROCESS)
-        self.detection_combo.addItem("API", DETECTION_MODE_API)
+        self.detection_combo.addItem("API (aoe4world)", DETECTION_MODE_API)
         self.detection_combo.addItem("Manuel", DETECTION_MODE_MANUAL)
         mode_row.addWidget(self.detection_combo)
         mode_row.addStretch()
@@ -104,16 +109,36 @@ class SettingsPanel(QWidget):
         
         # Profile ID (for API mode)
         self.profile_row = QWidget()
-        profile_layout = QHBoxLayout(self.profile_row)
+        profile_layout = QVBoxLayout(self.profile_row)
         profile_layout.setContentsMargins(0, 0, 0, 0)
-        profile_layout.addWidget(QLabel("Profile ID:"))
+        profile_layout.setSpacing(3)
+        
+        # Profile ID input row
+        profile_input_row = QHBoxLayout()
+        profile_input_row.addWidget(QLabel("Profile ID:"))
         
         self.profile_input = QLineEdit()
-        self.profile_input.setPlaceholderText("aoe4world.com ID")
+        self.profile_input.setPlaceholderText("12345678")
         self.profile_input.setFixedHeight(26)
-        self.profile_input.setMaximumWidth(120)
-        profile_layout.addWidget(self.profile_input)
-        profile_layout.addStretch()
+        profile_input_row.addWidget(self.profile_input)
+        
+        profile_layout.addLayout(profile_input_row)
+        
+        # Info label
+        self.profile_info_label = QLabel()
+        self.profile_info_label.setWordWrap(True)
+        self.profile_info_label.setStyleSheet("""
+            color: #888;
+            font-size: 9px;
+            padding: 2px 4px;
+            background-color: #1a1a2e;
+            border-radius: 3px;
+        """)
+        self.profile_info_label.setText(
+            "💡 aoe4world.com → Profilinize gidin → URL'deki sayıyı kopyalayın"
+        )
+        self.profile_info_label.setMaximumHeight(28)
+        profile_layout.addWidget(self.profile_info_label)
         
         detection_layout.addWidget(self.profile_row)
         self.profile_row.setVisible(False)
@@ -124,7 +149,7 @@ class SettingsPanel(QWidget):
         notif_group = QGroupBox("Bildirimler")
         notif_group.setStyleSheet("QGroupBox { font-size: 11px; }")
         notif_layout = QVBoxLayout(notif_group)
-        notif_layout.setSpacing(8)
+        notif_layout.setSpacing(6)
         
         # Sound row
         sound_row = QHBoxLayout()
@@ -188,7 +213,7 @@ class SettingsPanel(QWidget):
         ui_group = QGroupBox("Arayüz")
         ui_group.setStyleSheet("QGroupBox { font-size: 11px; }")
         ui_layout = QVBoxLayout(ui_group)
-        ui_layout.setSpacing(6)
+        ui_layout.setSpacing(4)
         
         self.always_on_top_checkbox = QCheckBox("Her zaman üstte")
         ui_layout.addWidget(self.always_on_top_checkbox)
@@ -199,8 +224,6 @@ class SettingsPanel(QWidget):
         ui_layout.addWidget(self.auto_start_checkbox)
         
         layout.addWidget(ui_group)
-        
-        layout.addStretch()
     
     def _connect_signals(self):
         self.interval_slider.valueChanged.connect(self._on_interval_changed)
@@ -225,7 +248,7 @@ class SettingsPanel(QWidget):
         self.interval_slider.setValue(self._config.get("interval", DEFAULT_INTERVAL))
         self.volume_slider.setValue(self._config.get("volume", 70))
         
-        mode = self._config.get("detection_mode", DETECTION_MODE_PROCESS)
+        mode = self._config.get("detection_mode", DETECTION_MODE_API)
         index = self.detection_combo.findData(mode)
         if index >= 0:
             self.detection_combo.setCurrentIndex(index)
