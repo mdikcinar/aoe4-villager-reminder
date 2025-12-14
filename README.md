@@ -15,6 +15,18 @@ A lightweight desktop companion app that reminds you to keep your Town Center bu
 
 ---
 
+> ⚠️ **Disclaimer**
+> 
+> This application is a **standalone training/habit-building tool** that runs completely independently from Age of Empires 4. It does **NOT**:
+> - Read, modify, or interact with game files or memory
+> - Inject code or hook into the game process
+> - Provide any in-game advantage or automation
+> - Violate the game's Terms of Service
+> 
+> It simply acts as an external timer/reminder to help you develop the habit of continuously producing villagers. The optional API integration only reads your **public** match history from [AoE4World](https://aoe4world.com) to detect when a game starts — no private data is accessed.
+
+---
+
 ## ✨ Features
 
 ### 🎮 Smart Game Detection
@@ -76,6 +88,11 @@ A lightweight desktop companion app that reminds you to keep your Town Center bu
 *Track your session, daily, and all-time stats*
 
 <img src="tests/golden/statistics_panel.png" alt="Statistics Panel" width="380"/>
+
+### In-Game Overlay
+*Transparent, always-on-top mini timer visible during gameplay*
+
+<img src="tests/golden/in_game_overlay.png" alt="In-Game Overlay" width="600"/>
 
 </div>
 
