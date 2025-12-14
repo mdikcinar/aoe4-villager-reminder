@@ -53,7 +53,7 @@ class MainWindow(QMainWindow):
         self.setWindowTitle(f"{APP_NAME}")
         
         # Fixed size - no resizing allowed
-        self.setFixedSize(380, 550)
+        self.setFixedSize(380, 600)
         
         # Apply dark theme
         self.setStyleSheet(DARK_THEME)

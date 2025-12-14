@@ -67,7 +67,7 @@ class SettingsPanel(QWidget):
         preset_row = QHBoxLayout()
         for seconds in [20, 25, 30, 35]:
             btn = QPushButton(f"{seconds}s")
-            btn.setFixedSize(45, 24)
+            btn.setFixedSize(45, 26)
             btn.setStyleSheet("""
                 QPushButton {
                     background-color: #3d3d5c;
@@ -76,6 +76,7 @@ class SettingsPanel(QWidget):
                     border-radius: 4px;
                     font-size: 10px;
                     font-weight: bold;
+                    padding: 2px 4px;
                 }
                 QPushButton:hover {
                     background-color: #4d4d6c;
@@ -101,7 +102,7 @@ class SettingsPanel(QWidget):
         mode_row.addWidget(self._method_label)
         
         self.detection_combo = QComboBox()
-        self.detection_combo.setFixedHeight(28)
+        self.detection_combo.setFixedHeight(34)
         self.detection_combo.addItem(tr("settings_api_mode"), DETECTION_MODE_API)
         self.detection_combo.addItem(tr("settings_manual_mode"), DETECTION_MODE_MANUAL)
         mode_row.addWidget(self.detection_combo)
@@ -170,7 +171,7 @@ class SettingsPanel(QWidget):
         sound_row.addWidget(self.volume_label)
         
         self.test_sound_btn = QPushButton(tr("btn_test"))
-        self.test_sound_btn.setFixedSize(45, 24)
+        self.test_sound_btn.setFixedSize(45, 26)
         self.test_sound_btn.setStyleSheet("""
             QPushButton {
                 background-color: #3d3d5c;
@@ -178,6 +179,7 @@ class SettingsPanel(QWidget):
                 border: none;
                 border-radius: 4px;
                 font-size: 10px;
+                padding: 2px 4px;
             }
             QPushButton:hover { background-color: #4d4d6c; }
         """)
@@ -194,7 +196,7 @@ class SettingsPanel(QWidget):
         popup_row.addWidget(self.popup_checkbox)
         
         self.test_popup_btn = QPushButton(tr("btn_test"))
-        self.test_popup_btn.setFixedSize(45, 24)
+        self.test_popup_btn.setFixedSize(45, 26)
         self.test_popup_btn.setStyleSheet("""
             QPushButton {
                 background-color: #3d3d5c;
@@ -202,6 +204,7 @@ class SettingsPanel(QWidget):
                 border: none;
                 border-radius: 4px;
                 font-size: 10px;
+                padding: 2px 4px;
             }
             QPushButton:hover { background-color: #4d4d6c; }
         """)
@@ -237,7 +240,7 @@ class SettingsPanel(QWidget):
         lang_row.addWidget(self._lang_label)
         
         self.language_combo = QComboBox()
-        self.language_combo.setFixedHeight(26)
+        self.language_combo.setFixedHeight(34)
         for code, name in SUPPORTED_LANGUAGES.items():
             self.language_combo.addItem(name, code)
         lang_row.addWidget(self.language_combo)
