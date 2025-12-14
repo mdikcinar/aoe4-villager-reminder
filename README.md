@@ -152,7 +152,7 @@ Settings are saved automatically to `config.json`:
 | Interval | 25s | Time between reminders |
 | Volume | 70% | Alert sound volume |
 | Sound | ✅ | Enable sound alerts |
-| Popup | ✅ | Enable Windows notifications |
+| Popup | ❌ | Enable Windows notifications |
 | Always on Top | ❌ | Keep main window above others |
 | Auto Start | ✅ | Start timer when game detected |
 | Auto Overlay | ✅ | Show overlay when game starts |

@@ -237,7 +237,7 @@ class MainWindow(QMainWindow):
         self._timer_service.interval = self._config.get("interval", 25)
         self._notification_service.volume = self._config.get("volume", 70)
         self._notification_service.sound_enabled = self._config.get("sound_enabled", True)
-        self._notification_service.popup_enabled = self._config.get("popup_enabled", True)
+        self._notification_service.popup_enabled = self._config.get("popup_enabled", False)
         
         self._game_detector.mode = self._config.get("detection_mode", "api")
         profile_id = self._config.get("profile_id")

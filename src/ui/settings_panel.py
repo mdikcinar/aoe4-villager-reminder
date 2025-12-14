@@ -192,7 +192,7 @@ class SettingsPanel(QWidget):
         popup_row = QHBoxLayout()
         
         self.popup_checkbox = QCheckBox(tr("settings_popup"))
-        self.popup_checkbox.setChecked(True)
+        self.popup_checkbox.setChecked(False)
         popup_row.addWidget(self.popup_checkbox)
         
         self.test_popup_btn = QPushButton(tr("btn_test"))
@@ -287,7 +287,7 @@ class SettingsPanel(QWidget):
             self.profile_input.setText(str(profile_id))
         
         self.sound_checkbox.setChecked(self._config.get("sound_enabled", True))
-        self.popup_checkbox.setChecked(self._config.get("popup_enabled", True))
+        self.popup_checkbox.setChecked(self._config.get("popup_enabled", False))
         self.always_on_top_checkbox.setChecked(self._config.get("always_on_top", False))
         self.auto_start_checkbox.setChecked(self._config.get("auto_start_detection", True))
         self.auto_show_overlay_checkbox.setChecked(self._config.get("auto_show_overlay", True))

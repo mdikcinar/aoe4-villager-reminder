@@ -86,7 +86,8 @@ def generate_settings_panel_image():
     """Generate settings panel screenshot."""
     panel = SettingsPanel()
     
-    container = create_styled_container(panel, 380, 500)
+    # Increase height to fit all components properly
+    container = create_styled_container(panel, 380, 540)
     return capture_widget(container, 'settings_panel.png')
 
 
@@ -152,7 +153,8 @@ class TestGoldenImages:
         """Generate settings panel screenshot."""
         panel = SettingsPanel()
         
-        container = create_styled_container(panel, 380, 500)
+        # Increase height to fit all components properly
+        container = create_styled_container(panel, 380, 540)
         filepath = capture_widget(container, 'settings_panel.png')
         
         assert os.path.exists(filepath)
