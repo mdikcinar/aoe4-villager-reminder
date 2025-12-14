@@ -235,7 +235,6 @@ Contributions are welcome! Here's how you can help:
 
 ### Ideas for Contributions
 
-- [ ] macOS/Linux support
 - [ ] Multiple timer profiles
 - [ ] Hotkey support
 - [ ] Game-specific sound packs
