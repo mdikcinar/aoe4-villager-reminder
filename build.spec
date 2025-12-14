@@ -1,6 +1,24 @@
 # -*- mode: python ; coding: utf-8 -*-
 # PyInstaller spec file for AoE4 Villager Reminder
 
+import re
+from pathlib import Path
+
+# Read version from constants.py
+def get_version():
+    """Read version number from constants.py file"""
+    constants_file = Path("src/utils/constants.py")
+    if constants_file.exists():
+        with open(constants_file, 'r', encoding='utf-8') as f:
+            content = f.read()
+        match = re.search(r'APP_VERSION\s*=\s*["\']([^"\']+)["\']', content)
+        if match:
+            return match.group(1)
+    return "1.0.0"
+
+VERSION = get_version()
+APP_NAME = f"AoE4-Villager-Reminder-v{VERSION}"
+
 block_cipher = None
 
 a = Analysis(
@@ -65,7 +83,7 @@ exe = EXE(
     a.zipfiles,
     a.datas,
     [],
-    name='AoE4VillagerReminder',
+    name=APP_NAME,
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -78,5 +96,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    # icon='assets/icons/app_icon.ico',  # No icon file available
+    icon='app_icon.png',  # Application icon
 )

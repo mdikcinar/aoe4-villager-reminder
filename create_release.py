@@ -96,10 +96,17 @@ def build_executable():
         print("[ERROR] Build failed!")
         return False
     
-    exe_path = Path("dist/AoE4VillagerReminder.exe")
+    # Find the executable with version in name
+    version = get_version()
+    exe_name = f"AoE4-Villager-Reminder-v{version}.exe"
+    exe_path = Path(f"dist/{exe_name}")
+    
     if not exe_path.exists():
-        print("[ERROR] Executable not created!")
-        return False
+        # Fallback to old name for backwards compatibility
+        exe_path = Path("dist/AoE4VillagerReminder.exe")
+        if not exe_path.exists():
+            print("[ERROR] Executable not created!")
+            return False
     
     print(f"[OK] Executable created: {exe_path}")
     return True
@@ -177,11 +184,16 @@ def create_github_release(version):
     print(f"\n[5/5] Creating GitHub Release...")
     
     tag_name = f"v{version}"
-    exe_path = Path("dist/AoE4VillagerReminder.exe")
+    # Try new name format first, then fallback to old format
+    exe_name = f"AoE4-Villager-Reminder-v{version}.exe"
+    exe_path = Path(f"dist/{exe_name}")
     
     if not exe_path.exists():
-        print("[ERROR] Executable not found!")
-        return False
+        # Fallback to old name for backwards compatibility
+        exe_path = Path("dist/AoE4VillagerReminder.exe")
+        if not exe_path.exists():
+            print("[ERROR] Executable not found!")
+            return False
     
     # Generate release notes
     release_notes = f"""Release {tag_name}
@@ -190,7 +202,7 @@ def create_github_release(version):
 - See CHANGELOG.md for details
 
 ### Download
-- **Windows**: Download and run AoE4VillagerReminder.exe
+- **Windows**: Download and run `AoE4-Villager-Reminder-v{version}.exe`
 - No installation required, portable
 
 ### Changes

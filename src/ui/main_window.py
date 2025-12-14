@@ -72,12 +72,17 @@ class MainWindow(QMainWindow):
     
     def _get_icon_path(self) -> str:
         """Get the application icon path."""
+        # Get project root directory
+        project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+        
         possible_paths = [
-            os.path.join(os.path.dirname(__file__), '..', '..', 'assets', 'icons', 'app_icon.png'),
-            os.path.join(getattr(sys, '_MEIPASS', ''), 'assets', 'icons', 'app_icon.png'),
+            os.path.join(project_root, 'app_icon.png'),  # Root directory
+            os.path.join(project_root, 'assets', 'icons', 'app_icon.png'),  # Assets/icons
+            os.path.join(getattr(sys, '_MEIPASS', ''), 'app_icon.png'),  # PyInstaller bundle
+            os.path.join(getattr(sys, '_MEIPASS', ''), 'assets', 'icons', 'app_icon.png'),  # PyInstaller bundle assets
         ]
         for path in possible_paths:
-            if os.path.exists(path):
+            if path and os.path.exists(path):
                 return path
         return ""
     
