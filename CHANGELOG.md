@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [master]
 
+## [1.1.0] - 2024-12-14
+
 ### Changed
 - Overlay widget control buttons added
 - App icon updated
