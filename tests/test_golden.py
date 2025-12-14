@@ -24,6 +24,7 @@ from PyQt6.QtGui import QPixmap
 from src.ui.timer_panel import TimerPanel
 from src.ui.settings_panel import SettingsPanel
 from src.ui.statistics_panel import StatisticsPanel
+from src.ui.overlay_widget import OverlayWidget
 from src.ui.styles import DARK_THEME
 from src.services.stats_tracker import StatsTracker
 from src.utils.localization import tr
@@ -103,6 +104,17 @@ def generate_statistics_panel_image():
     return capture_widget(container, 'statistics_panel.png')
 
 
+def generate_overlay_image():
+    """Generate in-game overlay screenshot."""
+    overlay = OverlayWidget()
+    overlay.update_timer(25)
+    overlay.set_running(True)
+    overlay.set_status(tr("timer_running"))
+    
+    # Overlay doesn't need a container, it's already styled
+    return capture_widget(overlay, 'in_game_overlay.png')
+
+
 def generate_all_images():
     """Generate all golden images."""
     app = QApplication.instance()
@@ -116,16 +128,20 @@ def generate_all_images():
     images = []
     
     # Timer Panel
-    print("\n[1/3] Timer Panel...")
+    print("\n[1/4] Timer Panel...")
     images.append(generate_timer_panel_image())
     
     # Settings Panel
-    print("\n[2/3] Settings Panel...")
+    print("\n[2/4] Settings Panel...")
     images.append(generate_settings_panel_image())
     
     # Statistics Panel
-    print("\n[3/3] Statistics Panel...")
+    print("\n[3/4] Statistics Panel...")
     images.append(generate_statistics_panel_image())
+    
+    # In-Game Overlay
+    print("\n[4/4] In-Game Overlay...")
+    images.append(generate_overlay_image())
     
     print("\n" + "=" * 50)
     print("All images generated successfully!")
@@ -168,6 +184,18 @@ class TestGoldenImages:
         
         container = create_styled_container(panel, 380, 420)
         filepath = capture_widget(container, 'statistics_panel.png')
+        
+        assert os.path.exists(filepath)
+        assert os.path.getsize(filepath) > 0
+    
+    def test_overlay_screenshot(self, qapp, golden_dir):
+        """Generate in-game overlay screenshot."""
+        overlay = OverlayWidget()
+        overlay.update_timer(25)
+        overlay.set_running(True)
+        overlay.set_status(tr("timer_running"))
+        
+        filepath = capture_widget(overlay, 'in_game_overlay.png')
         
         assert os.path.exists(filepath)
         assert os.path.getsize(filepath) > 0

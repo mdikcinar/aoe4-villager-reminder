@@ -17,7 +17,6 @@ class OverlayWidget(QWidget):
     
     closed = pyqtSignal()
     start_clicked = pyqtSignal()
-    pause_clicked = pyqtSignal()
     stop_clicked = pyqtSignal()
     
     def __init__(self, parent=None):
@@ -37,12 +36,12 @@ class OverlayWidget(QWidget):
             Qt.WindowType.Tool  # Don't show in taskbar
         )
         self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
-        self.setFixedSize(220, 100)
+        self.setFixedSize(150, 95)
     
     def _restore_position(self):
         """Restore saved position or use default."""
         screen = self.screen().availableGeometry()
-        default_x = screen.width() - 240
+        default_x = screen.width() - 180
         default_y = 50
         
         x = self._config.get("overlay_x", default_x)
@@ -77,7 +76,7 @@ class OverlayWidget(QWidget):
         """)
         
         container_layout = QVBoxLayout(self._container)
-        container_layout.setContentsMargins(12, 8, 12, 8)
+        container_layout.setContentsMargins(10, 8, 10, 8)
         container_layout.setSpacing(4)
         
         # Header with close button
@@ -128,7 +127,7 @@ class OverlayWidget(QWidget):
         
         # Main content: Timer on left, buttons on right
         content = QHBoxLayout()
-        content.setSpacing(10)
+        content.setSpacing(6)
         
         # Left side: Timer and status
         timer_section = QVBoxLayout()
@@ -139,7 +138,7 @@ class OverlayWidget(QWidget):
         self._timer_label.setStyleSheet("""
             QLabel {
                 color: #ffd700;
-                font-size: 36px;
+                font-size: 32px;
                 font-weight: bold;
                 border: none;
                 background: transparent;
@@ -163,73 +162,55 @@ class OverlayWidget(QWidget):
         
         # Right side: Control buttons (vertical)
         controls = QVBoxLayout()
-        controls.setSpacing(4)
+        controls.setSpacing(3)
         
         self._start_btn = QPushButton("▶")
-        self._start_btn.setFixedSize(28, 20)
+        self._start_btn.setFixedSize(24, 20)
+        self._start_btn.setFlat(True)
         self._start_btn.setStyleSheet("""
             QPushButton {
-                background-color: rgba(45, 106, 79, 0.9);
-                color: white;
+                background: transparent;
                 border: none;
-                border-radius: 3px;
-                font-size: 10px;
-                font-weight: bold;
+                color: rgba(220, 220, 220, 0.9);
+                font-size: 12px;
             }
             QPushButton:hover {
-                background-color: rgba(64, 145, 108, 0.95);
+                color: rgba(255, 255, 255, 1.0);
+                background: transparent;
             }
             QPushButton:disabled {
-                background-color: rgba(27, 67, 50, 0.7);
-                color: rgba(102, 102, 102, 0.8);
+                color: rgba(100, 100, 100, 0.5);
+                background: transparent;
+            }
+            QPushButton:pressed {
+                background: transparent;
             }
         """)
         self._start_btn.setToolTip(tr("btn_start"))
         self._start_btn.clicked.connect(self.start_clicked.emit)
         controls.addWidget(self._start_btn)
         
-        self._pause_btn = QPushButton("⏸")
-        self._pause_btn.setFixedSize(28, 20)
-        self._pause_btn.setEnabled(False)
-        self._pause_btn.setStyleSheet("""
-            QPushButton {
-                background-color: rgba(61, 61, 92, 0.9);
-                color: #eaeaea;
-                border: none;
-                border-radius: 3px;
-                font-size: 10px;
-                font-weight: bold;
-            }
-            QPushButton:hover {
-                background-color: rgba(77, 77, 108, 0.95);
-            }
-            QPushButton:disabled {
-                background-color: rgba(37, 37, 66, 0.7);
-                color: rgba(102, 102, 102, 0.8);
-            }
-        """)
-        self._pause_btn.setToolTip(tr("btn_pause"))
-        self._pause_btn.clicked.connect(self.pause_clicked.emit)
-        controls.addWidget(self._pause_btn)
-        
         self._stop_btn = QPushButton("⏹")
-        self._stop_btn.setFixedSize(28, 20)
+        self._stop_btn.setFixedSize(24, 20)
+        self._stop_btn.setFlat(True)
         self._stop_btn.setEnabled(False)
         self._stop_btn.setStyleSheet("""
             QPushButton {
-                background-color: rgba(157, 2, 8, 0.9);
-                color: white;
+                background: transparent;
                 border: none;
-                border-radius: 3px;
-                font-size: 10px;
-                font-weight: bold;
+                color: rgba(220, 220, 220, 0.9);
+                font-size: 12px;
             }
             QPushButton:hover {
-                background-color: rgba(208, 0, 0, 0.95);
+                color: rgba(255, 255, 255, 1.0);
+                background: transparent;
             }
             QPushButton:disabled {
-                background-color: rgba(74, 1, 4, 0.7);
-                color: rgba(102, 102, 102, 0.8);
+                color: rgba(100, 100, 100, 0.5);
+                background: transparent;
+            }
+            QPushButton:pressed {
+                background: transparent;
             }
         """)
         self._stop_btn.setToolTip(tr("btn_stop"))
@@ -251,7 +232,7 @@ class OverlayWidget(QWidget):
             self._timer_label.setStyleSheet("""
                 QLabel {
                     color: #ff6b6b;
-                    font-size: 36px;
+                    font-size: 32px;
                     font-weight: bold;
                     border: none;
                     background: transparent;
@@ -261,7 +242,7 @@ class OverlayWidget(QWidget):
             self._timer_label.setStyleSheet("""
                 QLabel {
                     color: #ffd700;
-                    font-size: 36px;
+                    font-size: 32px;
                     font-weight: bold;
                     border: none;
                     background: transparent;
@@ -274,11 +255,10 @@ class OverlayWidget(QWidget):
     
     def set_running(self, is_running: bool):
         """Update visual state based on timer running."""
+        # Play button: enabled when not running (to start or resume)
+        # Stop button: enabled when running (to stop)
         self._start_btn.setEnabled(not is_running)
-        self._pause_btn.setEnabled(is_running)
         self._stop_btn.setEnabled(is_running)
-        self._pause_btn.setText("⏸")
-        self._pause_btn.setToolTip(tr("btn_pause"))
         
         if is_running:
             self._status_label.setText(tr("timer_running"))
@@ -300,14 +280,16 @@ class OverlayWidget(QWidget):
             """)
     
     def set_paused(self, is_paused: bool):
-        """Update pause button text and tooltip."""
+        """Update visual state when paused."""
         if is_paused:
-            self._pause_btn.setText("▶")
-            self._pause_btn.setToolTip(tr("btn_resume"))
+            # When paused: play button enabled (to resume), stop button enabled (to stop)
+            self._start_btn.setEnabled(True)
+            self._stop_btn.setEnabled(True)
             self._status_label.setText(tr("timer_paused"))
         else:
-            self._pause_btn.setText("⏸")
-            self._pause_btn.setToolTip(tr("btn_pause"))
+            # When running: play button disabled, stop button enabled
+            self._start_btn.setEnabled(False)
+            self._stop_btn.setEnabled(True)
             self._status_label.setText(tr("timer_running"))
     
     def _toggle_lock(self):
@@ -360,5 +342,4 @@ class OverlayWidget(QWidget):
         self._lock_btn.setToolTip(tr("overlay_lock_tooltip"))
         self._status_label.setText(tr("timer_ready"))
         self._start_btn.setToolTip(tr("btn_start"))
-        self._pause_btn.setToolTip(tr("btn_pause"))
         self._stop_btn.setToolTip(tr("btn_stop"))

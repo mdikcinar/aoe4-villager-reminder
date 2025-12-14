@@ -237,7 +237,6 @@ class MainWindow(QMainWindow):
         # Overlay
         self._overlay.closed.connect(self._on_overlay_closed)
         self._overlay.start_clicked.connect(self._on_start_clicked)
-        self._overlay.pause_clicked.connect(self._on_pause_clicked)
         self._overlay.stop_clicked.connect(self._on_stop_clicked)
         
         # Connect pause/resume to overlay as well
