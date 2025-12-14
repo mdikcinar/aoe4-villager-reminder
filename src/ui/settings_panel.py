@@ -9,6 +9,7 @@ from ..utils.constants import (
     DETECTION_MODE_API, DETECTION_MODE_MANUAL
 )
 from ..utils.config import Config
+from ..utils.localization import tr, get_localization, SUPPORTED_LANGUAGES
 
 
 class SettingsPanel(QWidget):
@@ -22,6 +23,8 @@ class SettingsPanel(QWidget):
     sound_enabled_changed = pyqtSignal(bool)
     popup_enabled_changed = pyqtSignal(bool)
     always_on_top_changed = pyqtSignal(bool)
+    auto_show_overlay_changed = pyqtSignal(bool)
+    language_changed = pyqtSignal(str)
     test_sound_requested = pyqtSignal()
     test_popup_requested = pyqtSignal()
     
@@ -38,14 +41,15 @@ class SettingsPanel(QWidget):
         layout.setSpacing(8)
         
         # Timer Settings
-        timer_group = QGroupBox("Zamanlayıcı")
-        timer_group.setStyleSheet("QGroupBox { font-size: 11px; }")
-        timer_layout = QVBoxLayout(timer_group)
+        self._timer_group = QGroupBox(tr("settings_timer"))
+        self._timer_group.setStyleSheet("QGroupBox { font-size: 11px; }")
+        timer_layout = QVBoxLayout(self._timer_group)
         timer_layout.setSpacing(8)
         
         # Interval
         interval_row = QHBoxLayout()
-        interval_row.addWidget(QLabel("Aralık:"))
+        self._interval_text_label = QLabel(tr("settings_interval"))
+        interval_row.addWidget(self._interval_text_label)
         
         self.interval_slider = QSlider(Qt.Orientation.Horizontal)
         self.interval_slider.setRange(MIN_INTERVAL, MAX_INTERVAL)
@@ -61,9 +65,6 @@ class SettingsPanel(QWidget):
         
         # Quick presets
         preset_row = QHBoxLayout()
-        preset_label = QLabel("Hızlı:")
-        preset_label.setStyleSheet("color: #b0b0b0; font-size: 10px;")
-        preset_row.addWidget(preset_label)
         for seconds in [20, 25, 30, 35]:
             btn = QPushButton(f"{seconds}s")
             btn.setFixedSize(45, 24)
@@ -86,22 +87,23 @@ class SettingsPanel(QWidget):
         preset_row.addStretch()
         timer_layout.addLayout(preset_row)
         
-        layout.addWidget(timer_group)
+        layout.addWidget(self._timer_group)
         
         # Detection Settings
-        detection_group = QGroupBox("Oyun Algılama")
-        detection_group.setStyleSheet("QGroupBox { font-size: 11px; }")
-        detection_layout = QVBoxLayout(detection_group)
+        self._detection_group = QGroupBox(tr("settings_detection"))
+        self._detection_group.setStyleSheet("QGroupBox { font-size: 11px; }")
+        detection_layout = QVBoxLayout(self._detection_group)
         detection_layout.setSpacing(6)
         
         # Mode combo
         mode_row = QHBoxLayout()
-        mode_row.addWidget(QLabel("Yöntem:"))
+        self._method_label = QLabel(tr("settings_method"))
+        mode_row.addWidget(self._method_label)
         
         self.detection_combo = QComboBox()
         self.detection_combo.setFixedHeight(28)
-        self.detection_combo.addItem("API (aoe4world)", DETECTION_MODE_API)
-        self.detection_combo.addItem("Manuel", DETECTION_MODE_MANUAL)
+        self.detection_combo.addItem(tr("settings_api_mode"), DETECTION_MODE_API)
+        self.detection_combo.addItem(tr("settings_manual_mode"), DETECTION_MODE_MANUAL)
         mode_row.addWidget(self.detection_combo)
         mode_row.addStretch()
         
@@ -115,11 +117,12 @@ class SettingsPanel(QWidget):
         
         # Profile ID input row
         profile_input_row = QHBoxLayout()
-        profile_input_row.addWidget(QLabel("Profile ID:"))
+        self._profile_id_label = QLabel(tr("settings_profile_id"))
+        profile_input_row.addWidget(self._profile_id_label)
         
         self.profile_input = QLineEdit()
         self.profile_input.setPlaceholderText("12345678")
-        self.profile_input.setFixedHeight(26)
+        self.profile_input.setFixedHeight(32)
         profile_input_row.addWidget(self.profile_input)
         
         profile_layout.addLayout(profile_input_row)
@@ -134,27 +137,25 @@ class SettingsPanel(QWidget):
             background-color: #1a1a2e;
             border-radius: 3px;
         """)
-        self.profile_info_label.setText(
-            "💡 aoe4world.com → Profilinize gidin → URL'deki sayıyı kopyalayın"
-        )
+        self.profile_info_label.setText(tr("settings_profile_hint"))
         self.profile_info_label.setMaximumHeight(28)
         profile_layout.addWidget(self.profile_info_label)
         
         detection_layout.addWidget(self.profile_row)
         self.profile_row.setVisible(False)
         
-        layout.addWidget(detection_group)
+        layout.addWidget(self._detection_group)
         
         # Notification Settings
-        notif_group = QGroupBox("Bildirimler")
-        notif_group.setStyleSheet("QGroupBox { font-size: 11px; }")
-        notif_layout = QVBoxLayout(notif_group)
+        self._notif_group = QGroupBox(tr("settings_notifications"))
+        self._notif_group.setStyleSheet("QGroupBox { font-size: 11px; }")
+        notif_layout = QVBoxLayout(self._notif_group)
         notif_layout.setSpacing(6)
         
         # Sound row
         sound_row = QHBoxLayout()
         
-        self.sound_checkbox = QCheckBox("Ses")
+        self.sound_checkbox = QCheckBox(tr("settings_sound"))
         self.sound_checkbox.setChecked(True)
         sound_row.addWidget(self.sound_checkbox)
         
@@ -168,11 +169,12 @@ class SettingsPanel(QWidget):
         self.volume_label.setMinimumWidth(35)
         sound_row.addWidget(self.volume_label)
         
-        self.test_sound_btn = QPushButton("Test")
+        self.test_sound_btn = QPushButton(tr("btn_test"))
         self.test_sound_btn.setFixedSize(45, 24)
         self.test_sound_btn.setStyleSheet("""
             QPushButton {
                 background-color: #3d3d5c;
+                color: #eaeaea;
                 border: none;
                 border-radius: 4px;
                 font-size: 10px;
@@ -187,15 +189,16 @@ class SettingsPanel(QWidget):
         # Popup row
         popup_row = QHBoxLayout()
         
-        self.popup_checkbox = QCheckBox("Popup bildirimi")
+        self.popup_checkbox = QCheckBox(tr("settings_popup"))
         self.popup_checkbox.setChecked(True)
         popup_row.addWidget(self.popup_checkbox)
         
-        self.test_popup_btn = QPushButton("Test")
+        self.test_popup_btn = QPushButton(tr("btn_test"))
         self.test_popup_btn.setFixedSize(45, 24)
         self.test_popup_btn.setStyleSheet("""
             QPushButton {
                 background-color: #3d3d5c;
+                color: #eaeaea;
                 border: none;
                 border-radius: 4px;
                 font-size: 10px;
@@ -207,29 +210,49 @@ class SettingsPanel(QWidget):
         
         notif_layout.addLayout(popup_row)
         
-        layout.addWidget(notif_group)
+        layout.addWidget(self._notif_group)
         
         # UI Settings
-        ui_group = QGroupBox("Arayüz")
-        ui_group.setStyleSheet("QGroupBox { font-size: 11px; }")
-        ui_layout = QVBoxLayout(ui_group)
+        self._ui_group = QGroupBox(tr("settings_interface"))
+        self._ui_group.setStyleSheet("QGroupBox { font-size: 11px; }")
+        ui_layout = QVBoxLayout(self._ui_group)
         ui_layout.setSpacing(4)
         
-        self.always_on_top_checkbox = QCheckBox("Her zaman üstte")
+        self.always_on_top_checkbox = QCheckBox(tr("settings_always_on_top"))
         ui_layout.addWidget(self.always_on_top_checkbox)
         
-        self.auto_start_checkbox = QCheckBox("Otomatik başla")
+        self.auto_start_checkbox = QCheckBox(tr("settings_auto_start"))
         self.auto_start_checkbox.setChecked(True)
-        self.auto_start_checkbox.setToolTip("Oyun algılandığında timer otomatik başlasın")
+        self.auto_start_checkbox.setToolTip(tr("settings_auto_start_tooltip"))
         ui_layout.addWidget(self.auto_start_checkbox)
         
-        layout.addWidget(ui_group)
+        self.auto_show_overlay_checkbox = QCheckBox(tr("settings_auto_overlay"))
+        self.auto_show_overlay_checkbox.setChecked(True)
+        self.auto_show_overlay_checkbox.setToolTip(tr("settings_auto_overlay_tooltip"))
+        ui_layout.addWidget(self.auto_show_overlay_checkbox)
+        
+        # Language selector
+        lang_row = QHBoxLayout()
+        self._lang_label = QLabel(tr("settings_language") + ":")
+        lang_row.addWidget(self._lang_label)
+        
+        self.language_combo = QComboBox()
+        self.language_combo.setFixedHeight(26)
+        for code, name in SUPPORTED_LANGUAGES.items():
+            self.language_combo.addItem(name, code)
+        lang_row.addWidget(self.language_combo)
+        lang_row.addStretch()
+        
+        ui_layout.addLayout(lang_row)
+        
+        layout.addWidget(self._ui_group)
     
     def _connect_signals(self):
         self.interval_slider.valueChanged.connect(self._on_interval_changed)
         self.volume_slider.valueChanged.connect(self._on_volume_changed)
         self.detection_combo.currentIndexChanged.connect(self._on_detection_mode_changed)
         self.profile_input.textChanged.connect(self._on_profile_id_changed)
+        self.language_combo.currentIndexChanged.connect(self._on_language_changed)
         
         self.sound_checkbox.stateChanged.connect(
             lambda state: self.sound_enabled_changed.emit(state == Qt.CheckState.Checked.value)
@@ -239,6 +262,9 @@ class SettingsPanel(QWidget):
         )
         self.always_on_top_checkbox.stateChanged.connect(
             lambda state: self.always_on_top_changed.emit(state == Qt.CheckState.Checked.value)
+        )
+        self.auto_show_overlay_checkbox.stateChanged.connect(
+            lambda state: self._on_auto_show_overlay_changed(state == Qt.CheckState.Checked.value)
         )
         
         self.test_sound_btn.clicked.connect(self.test_sound_requested.emit)
@@ -261,6 +287,13 @@ class SettingsPanel(QWidget):
         self.popup_checkbox.setChecked(self._config.get("popup_enabled", True))
         self.always_on_top_checkbox.setChecked(self._config.get("always_on_top", False))
         self.auto_start_checkbox.setChecked(self._config.get("auto_start_detection", True))
+        self.auto_show_overlay_checkbox.setChecked(self._config.get("auto_show_overlay", True))
+        
+        # Set language combo to current language
+        loc = get_localization()
+        lang_index = self.language_combo.findData(loc.current_language)
+        if lang_index >= 0:
+            self.language_combo.setCurrentIndex(lang_index)
         
         self._update_profile_visibility()
     
@@ -287,10 +320,58 @@ class SettingsPanel(QWidget):
         self._config.set("profile_id", text if text else None)
         self.profile_id_changed.emit(text)
     
+    def _on_language_changed(self, index: int):
+        lang_code = self.language_combo.currentData()
+        loc = get_localization()
+        if loc.set_language(lang_code):
+            self.language_changed.emit(lang_code)
+    
     def _update_profile_visibility(self):
         mode = self.detection_combo.currentData()
         self.profile_row.setVisible(mode == DETECTION_MODE_API)
     
+    def _on_auto_show_overlay_changed(self, enabled: bool):
+        self._config.set("auto_show_overlay", enabled)
+        self.auto_show_overlay_changed.emit(enabled)
+    
     @property
     def auto_start_enabled(self) -> bool:
         return self.auto_start_checkbox.isChecked()
+    
+    @property
+    def auto_show_overlay_enabled(self) -> bool:
+        return self.auto_show_overlay_checkbox.isChecked()
+    
+    def retranslate_ui(self):
+        """Retranslate all UI strings (called when language changes)."""
+        self._timer_group.setTitle(tr("settings_timer"))
+        self._interval_text_label.setText(tr("settings_interval"))
+        
+        self._detection_group.setTitle(tr("settings_detection"))
+        self._method_label.setText(tr("settings_method"))
+        
+        # Update combo items - need to preserve current selection
+        current_mode = self.detection_combo.currentData()
+        self.detection_combo.clear()
+        self.detection_combo.addItem(tr("settings_api_mode"), DETECTION_MODE_API)
+        self.detection_combo.addItem(tr("settings_manual_mode"), DETECTION_MODE_MANUAL)
+        mode_index = self.detection_combo.findData(current_mode)
+        if mode_index >= 0:
+            self.detection_combo.setCurrentIndex(mode_index)
+        
+        self._profile_id_label.setText(tr("settings_profile_id"))
+        self.profile_info_label.setText(tr("settings_profile_hint"))
+        
+        self._notif_group.setTitle(tr("settings_notifications"))
+        self.sound_checkbox.setText(tr("settings_sound"))
+        self.popup_checkbox.setText(tr("settings_popup"))
+        self.test_sound_btn.setText(tr("btn_test"))
+        self.test_popup_btn.setText(tr("btn_test"))
+        
+        self._ui_group.setTitle(tr("settings_interface"))
+        self.always_on_top_checkbox.setText(tr("settings_always_on_top"))
+        self.auto_start_checkbox.setText(tr("settings_auto_start"))
+        self.auto_start_checkbox.setToolTip(tr("settings_auto_start_tooltip"))
+        self.auto_show_overlay_checkbox.setText(tr("settings_auto_overlay"))
+        self.auto_show_overlay_checkbox.setToolTip(tr("settings_auto_overlay_tooltip"))
+        self._lang_label.setText(tr("settings_language") + ":")

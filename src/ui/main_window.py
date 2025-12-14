@@ -18,6 +18,7 @@ from ..services.notification import NotificationService
 from ..services.stats_tracker import StatsTracker
 from ..utils.config import Config
 from ..utils.constants import APP_NAME, APP_VERSION
+from ..utils.localization import tr
 
 
 class MainWindow(QMainWindow):
@@ -52,7 +53,7 @@ class MainWindow(QMainWindow):
         self.setWindowTitle(f"{APP_NAME}")
         
         # Fixed size - no resizing allowed
-        self.setFixedSize(380, 520)
+        self.setFixedSize(380, 550)
         
         # Apply dark theme
         self.setStyleSheet(DARK_THEME)
@@ -93,35 +94,35 @@ class MainWindow(QMainWindow):
             ))
         
         # Tray menu
-        tray_menu = QMenu()
+        self._tray_menu = QMenu()
         
-        show_action = QAction("Göster", self)
-        show_action.triggered.connect(self.show_normal)
-        tray_menu.addAction(show_action)
+        self._tray_show_action = QAction(tr("tray_show"), self)
+        self._tray_show_action.triggered.connect(self.show_normal)
+        self._tray_menu.addAction(self._tray_show_action)
         
-        tray_menu.addSeparator()
+        self._tray_menu.addSeparator()
         
-        overlay_action = QAction("Overlay Aç/Kapat", self)
-        overlay_action.triggered.connect(self._toggle_overlay)
-        tray_menu.addAction(overlay_action)
+        self._tray_overlay_action = QAction(tr("tray_overlay_toggle"), self)
+        self._tray_overlay_action.triggered.connect(self._toggle_overlay)
+        self._tray_menu.addAction(self._tray_overlay_action)
         
-        tray_menu.addSeparator()
+        self._tray_menu.addSeparator()
         
-        start_action = QAction("Başlat", self)
-        start_action.triggered.connect(self._on_start_clicked)
-        tray_menu.addAction(start_action)
+        self._tray_start_action = QAction(tr("tray_start"), self)
+        self._tray_start_action.triggered.connect(self._on_start_clicked)
+        self._tray_menu.addAction(self._tray_start_action)
         
-        stop_action = QAction("Durdur", self)
-        stop_action.triggered.connect(self._on_stop_clicked)
-        tray_menu.addAction(stop_action)
+        self._tray_stop_action = QAction(tr("tray_stop"), self)
+        self._tray_stop_action.triggered.connect(self._on_stop_clicked)
+        self._tray_menu.addAction(self._tray_stop_action)
         
-        tray_menu.addSeparator()
+        self._tray_menu.addSeparator()
         
-        quit_action = QAction("Çıkış", self)
-        quit_action.triggered.connect(self._quit_app)
-        tray_menu.addAction(quit_action)
+        self._tray_quit_action = QAction(tr("tray_quit"), self)
+        self._tray_quit_action.triggered.connect(self._quit_app)
+        self._tray_menu.addAction(self._tray_quit_action)
         
-        self._tray_icon.setContextMenu(tray_menu)
+        self._tray_icon.setContextMenu(self._tray_menu)
         self._tray_icon.activated.connect(self._on_tray_activated)
         self._tray_icon.show()
         
@@ -179,15 +180,15 @@ class MainWindow(QMainWindow):
         
         # Timer tab
         self._timer_panel = TimerPanel()
-        self._tabs.addTab(self._timer_panel, "⏱ Timer")
+        self._tabs.addTab(self._timer_panel, "⏱ " + tr("tab_timer"))
         
         # Settings tab
         self._settings_panel = SettingsPanel()
-        self._tabs.addTab(self._settings_panel, "⚙ Ayarlar")
+        self._tabs.addTab(self._settings_panel, "⚙ " + tr("tab_settings"))
         
         # Statistics tab
         self._stats_panel = StatisticsPanel(self._stats_tracker)
-        self._tabs.addTab(self._stats_panel, "📊 İstatistik")
+        self._tabs.addTab(self._stats_panel, "📊 " + tr("tab_statistics"))
         
         main_layout.addWidget(self._tabs)
     
@@ -226,6 +227,7 @@ class MainWindow(QMainWindow):
         self._settings_panel.always_on_top_changed.connect(self._on_always_on_top_changed)
         self._settings_panel.test_sound_requested.connect(self._notification_service.test_sound)
         self._settings_panel.test_popup_requested.connect(self._notification_service.test_popup)
+        self._settings_panel.language_changed.connect(self._on_language_changed)
         
         # Overlay
         self._overlay.closed.connect(self._on_overlay_closed)
@@ -266,10 +268,10 @@ class MainWindow(QMainWindow):
     
     def _on_game_started(self):
         """Handle game start detection."""
-        # Auto-open overlay when match starts
-        if not self._overlay.isVisible():
+        # Auto-open overlay when match starts (if enabled)
+        if self._settings_panel.auto_show_overlay_enabled and not self._overlay.isVisible():
             self._overlay.show()
-            self._timer_panel.overlay_btn.setText("Gizle")
+            self._timer_panel.overlay_btn.setText(tr("btn_hide"))
         
         if self._settings_panel.auto_start_enabled:
             self._timer_service.start()
@@ -337,18 +339,39 @@ class MainWindow(QMainWindow):
             self.setWindowFlags(self.windowFlags() & ~Qt.WindowType.WindowStaysOnTopHint)
         self.show()
     
+    def _on_language_changed(self, lang_code: str):
+        """Handle language change - retranslate all UI."""
+        self._retranslate_ui()
+        self._timer_panel.retranslate_ui()
+        self._settings_panel.retranslate_ui()
+        self._overlay.retranslate_ui()
+    
+    def _retranslate_ui(self):
+        """Retranslate main window UI strings."""
+        # Update tab titles
+        self._tabs.setTabText(0, "⏱ " + tr("tab_timer"))
+        self._tabs.setTabText(1, "⚙ " + tr("tab_settings"))
+        self._tabs.setTabText(2, "📊 " + tr("tab_statistics"))
+        
+        # Update tray menu
+        self._tray_show_action.setText(tr("tray_show"))
+        self._tray_overlay_action.setText(tr("tray_overlay_toggle"))
+        self._tray_start_action.setText(tr("tray_start"))
+        self._tray_stop_action.setText(tr("tray_stop"))
+        self._tray_quit_action.setText(tr("tray_quit"))
+    
     def _toggle_overlay(self):
         """Toggle overlay visibility."""
         if self._overlay.isVisible():
             self._overlay.hide()
-            self._timer_panel.overlay_btn.setText("Göster")
+            self._timer_panel.overlay_btn.setText(tr("btn_show"))
         else:
             self._overlay.show()
-            self._timer_panel.overlay_btn.setText("Gizle")
+            self._timer_panel.overlay_btn.setText(tr("btn_hide"))
     
     def _on_overlay_closed(self):
         """Handle overlay close."""
-        self._timer_panel.overlay_btn.setText("Göster")
+        self._timer_panel.overlay_btn.setText(tr("btn_show"))
     
     def _on_tray_activated(self, reason):
         """Handle tray icon activation."""
@@ -367,7 +390,7 @@ class MainWindow(QMainWindow):
             self.hide()
             self._tray_icon.showMessage(
                 APP_NAME,
-                "Arka planda çalışıyor",
+                tr("running_in_background"),
                 QSystemTrayIcon.MessageIcon.Information,
                 1500
             )

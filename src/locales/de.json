@@ -1,0 +1,65 @@
+{
+  "app_name": "AoE4 Villager Reminder",
+  "running_in_background": "Läuft im Hintergrund",
+  
+  "tab_timer": "Timer",
+  "tab_settings": "Einstellungen",
+  "tab_statistics": "Statistiken",
+  
+  "timer_seconds": "Sekunden",
+  "timer_ready": "Bereit",
+  "timer_running": "Läuft",
+  "timer_paused": "Pausiert",
+  "timer_stopped": "Gestoppt",
+  
+  "btn_start": "Start",
+  "btn_pause": "Pause",
+  "btn_resume": "Fortsetzen",
+  "btn_stop": "Stopp",
+  "btn_show": "Anzeigen",
+  "btn_hide": "Ausblenden",
+  "btn_test": "Test",
+  
+  "overlay_title": "Villager",
+  "overlay_ingame": "In-Game Overlay",
+  "overlay_lock_tooltip": "Position sperren/entsperren",
+  
+  "settings_timer": "Timer",
+  "settings_interval": "Intervall:",
+  "settings_detection": "Spielerkennung",
+  "settings_method": "Methode:",
+  "settings_api_mode": "API (aoe4world)",
+  "settings_manual_mode": "Manuell",
+  "settings_profile_id": "Profil-ID:",
+  "settings_profile_hint": "aoe4world.com → Gehen Sie zu Ihrem Profil → Kopieren Sie die Zahl aus der URL",
+  
+  "settings_notifications": "Benachrichtigungen",
+  "settings_sound": "Ton",
+  "settings_popup": "Popup-Benachrichtigung",
+  
+  "settings_interface": "Benutzeroberfläche",
+  "settings_always_on_top": "Immer im Vordergrund",
+  "settings_auto_start": "Automatisch starten",
+  "settings_auto_start_tooltip": "Timer automatisch starten, wenn Spiel erkannt wird",
+  "settings_auto_overlay": "Overlay automatisch anzeigen",
+  "settings_auto_overlay_tooltip": "Overlay automatisch anzeigen, wenn das Spiel startet",
+  "settings_language": "Sprache",
+  
+  "tray_show": "Anzeigen",
+  "tray_overlay_toggle": "Overlay umschalten",
+  "tray_start": "Start",
+  "tray_stop": "Stopp",
+  "tray_quit": "Beenden",
+  
+  "stats_title": "Statistiken",
+  "stats_session": "Aktuelle Sitzung",
+  "stats_total": "Gesamt",
+  "stats_alerts": "Alarme",
+  "stats_time": "Zeit",
+  
+  "game_detected": "Spiel erkannt",
+  "game_ended": "Spiel beendet",
+  "waiting_for_game": "Warte auf Spiel...",
+  "checking_api": "Überprüfe API..."
+}
+

@@ -1,0 +1,65 @@
+{
+  "app_name": "AoE4 Villager Reminder",
+  "running_in_background": "Ejecutándose en segundo plano",
+  
+  "tab_timer": "Temporizador",
+  "tab_settings": "Ajustes",
+  "tab_statistics": "Estadísticas",
+  
+  "timer_seconds": "segundos",
+  "timer_ready": "Listo",
+  "timer_running": "Ejecutando",
+  "timer_paused": "Pausado",
+  "timer_stopped": "Detenido",
+  
+  "btn_start": "Iniciar",
+  "btn_pause": "Pausar",
+  "btn_resume": "Reanudar",
+  "btn_stop": "Detener",
+  "btn_show": "Mostrar",
+  "btn_hide": "Ocultar",
+  "btn_test": "Probar",
+  
+  "overlay_title": "Villager",
+  "overlay_ingame": "Overlay en juego",
+  "overlay_lock_tooltip": "Bloquear/desbloquear posición",
+  
+  "settings_timer": "Temporizador",
+  "settings_interval": "Intervalo:",
+  "settings_detection": "Detección del juego",
+  "settings_method": "Método:",
+  "settings_api_mode": "API (aoe4world)",
+  "settings_manual_mode": "Manual",
+  "settings_profile_id": "ID de perfil:",
+  "settings_profile_hint": "aoe4world.com → Ve a tu perfil → Copia el número de la URL",
+  
+  "settings_notifications": "Notificaciones",
+  "settings_sound": "Sonido",
+  "settings_popup": "Notificación emergente",
+  
+  "settings_interface": "Interfaz",
+  "settings_always_on_top": "Siempre visible",
+  "settings_auto_start": "Inicio automático",
+  "settings_auto_start_tooltip": "Iniciar temporizador automáticamente cuando se detecte el juego",
+  "settings_auto_overlay": "Mostrar overlay automáticamente",
+  "settings_auto_overlay_tooltip": "Mostrar overlay automáticamente cuando inicie el juego",
+  "settings_language": "Idioma",
+  
+  "tray_show": "Mostrar",
+  "tray_overlay_toggle": "Alternar Overlay",
+  "tray_start": "Iniciar",
+  "tray_stop": "Detener",
+  "tray_quit": "Salir",
+  
+  "stats_title": "Estadísticas",
+  "stats_session": "Sesión actual",
+  "stats_total": "Total",
+  "stats_alerts": "Alertas",
+  "stats_time": "Tiempo",
+  
+  "game_detected": "Juego detectado",
+  "game_ended": "Juego terminado",
+  "waiting_for_game": "Esperando juego...",
+  "checking_api": "Verificando API..."
+}
+

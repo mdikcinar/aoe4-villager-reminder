@@ -4,6 +4,8 @@ from PyQt6.QtWidgets import (
 from PyQt6.QtCore import Qt, QPoint, pyqtSignal, QPropertyAnimation, QEasingCurve
 from PyQt6.QtGui import QFont, QMouseEvent
 
+from ..utils.localization import tr
+
 
 class OverlayWidget(QWidget):
     """
@@ -58,9 +60,9 @@ class OverlayWidget(QWidget):
         # Header with close button
         header = QHBoxLayout()
         
-        title = QLabel("Villager")
-        title.setStyleSheet("color: rgba(255, 215, 0, 0.8); font-size: 11px; font-weight: bold; border: none; background: transparent;")
-        header.addWidget(title)
+        self._title = QLabel(tr("overlay_title"))
+        self._title.setStyleSheet("color: rgba(255, 215, 0, 0.8); font-size: 11px; font-weight: bold; border: none; background: transparent;")
+        header.addWidget(self._title)
         
         header.addStretch()
         
@@ -79,7 +81,7 @@ class OverlayWidget(QWidget):
             }
         """)
         self._lock_btn.clicked.connect(self._toggle_lock)
-        self._lock_btn.setToolTip("Konumu kilitle/aç")
+        self._lock_btn.setToolTip(tr("overlay_lock_tooltip"))
         header.addWidget(self._lock_btn)
         
         # Close button
@@ -116,7 +118,7 @@ class OverlayWidget(QWidget):
         container_layout.addWidget(self._timer_label)
         
         # Status
-        self._status_label = QLabel("Hazır")
+        self._status_label = QLabel(tr("timer_ready"))
         self._status_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self._status_label.setStyleSheet("""
             QLabel {
@@ -163,7 +165,7 @@ class OverlayWidget(QWidget):
     def set_running(self, is_running: bool):
         """Update visual state based on timer running."""
         if is_running:
-            self._status_label.setText("Çalışıyor")
+            self._status_label.setText(tr("timer_running"))
             self._container.setStyleSheet("""
                 QWidget {
                     background-color: rgba(26, 26, 46, 0.9);
@@ -172,7 +174,7 @@ class OverlayWidget(QWidget):
                 }
             """)
         else:
-            self._status_label.setText("Durduruldu")
+            self._status_label.setText(tr("timer_stopped"))
             self._container.setStyleSheet("""
                 QWidget {
                     background-color: rgba(26, 26, 46, 0.85);
@@ -217,5 +219,9 @@ class OverlayWidget(QWidget):
         # Reset after delay
         from PyQt6.QtCore import QTimer
         QTimer.singleShot(200, lambda: self._container.setStyleSheet(original_style))
-
-
+    
+    def retranslate_ui(self):
+        """Retranslate all UI strings (called when language changes)."""
+        self._title.setText(tr("overlay_title"))
+        self._lock_btn.setToolTip(tr("overlay_lock_tooltip"))
+        self._status_label.setText(tr("timer_ready"))

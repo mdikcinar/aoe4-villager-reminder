@@ -4,6 +4,8 @@ from PyQt6.QtWidgets import (
 )
 from PyQt6.QtCore import Qt
 
+from ..utils.localization import tr
+
 
 class TimerPanel(QWidget):
     """Timer display panel for the main window."""
@@ -63,10 +65,10 @@ class TimerPanel(QWidget):
         timer_layout.addWidget(self.progress_bar)
         
         # Subtitle
-        subtitle = QLabel("saniye")
-        subtitle.setStyleSheet("color: #b0b0b0; font-size: 13px;")
-        subtitle.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        timer_layout.addWidget(subtitle)
+        self._subtitle = QLabel(tr("timer_seconds"))
+        self._subtitle.setStyleSheet("color: #b0b0b0; font-size: 13px;")
+        self._subtitle.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        timer_layout.addWidget(self._subtitle)
         
         layout.addWidget(timer_container)
         
@@ -76,7 +78,7 @@ class TimerPanel(QWidget):
         controls_layout.setContentsMargins(0, 0, 0, 0)
         controls_layout.setSpacing(10)
         
-        self.start_btn = QPushButton("Başlat")
+        self.start_btn = QPushButton(tr("btn_start"))
         self.start_btn.setObjectName("startButton")
         self.start_btn.setStyleSheet("""
             QPushButton {
@@ -98,7 +100,7 @@ class TimerPanel(QWidget):
         """)
         controls_layout.addWidget(self.start_btn)
         
-        self.pause_btn = QPushButton("Duraklat")
+        self.pause_btn = QPushButton(tr("btn_pause"))
         self.pause_btn.setEnabled(False)
         self.pause_btn.setStyleSheet("""
             QPushButton {
@@ -120,7 +122,7 @@ class TimerPanel(QWidget):
         """)
         controls_layout.addWidget(self.pause_btn)
         
-        self.stop_btn = QPushButton("Durdur")
+        self.stop_btn = QPushButton(tr("btn_stop"))
         self.stop_btn.setObjectName("stopButton")
         self.stop_btn.setEnabled(False)
         self.stop_btn.setStyleSheet("""
@@ -146,7 +148,7 @@ class TimerPanel(QWidget):
         layout.addWidget(controls)
         
         # Status label
-        self.status_label = QLabel("Hazır")
+        self.status_label = QLabel(tr("timer_ready"))
         self.status_label.setStyleSheet("color: #b0b0b0; font-size: 12px;")
         self.status_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(self.status_label)
@@ -165,13 +167,13 @@ class TimerPanel(QWidget):
         overlay_layout = QHBoxLayout(overlay_container)
         overlay_layout.setContentsMargins(15, 12, 15, 12)
         
-        overlay_label = QLabel("In-Game Overlay")
-        overlay_label.setStyleSheet("color: #eaeaea; font-size: 12px;")
-        overlay_layout.addWidget(overlay_label)
+        self._overlay_label = QLabel(tr("overlay_ingame"))
+        self._overlay_label.setStyleSheet("color: #eaeaea; font-size: 12px;")
+        overlay_layout.addWidget(self._overlay_label)
         
         overlay_layout.addStretch()
         
-        self.overlay_btn = QPushButton("Göster")
+        self.overlay_btn = QPushButton(tr("btn_show"))
         self.overlay_btn.setStyleSheet("""
             QPushButton {
                 background-color: #3d3d5c;
@@ -222,10 +224,18 @@ class TimerPanel(QWidget):
         self.start_btn.setEnabled(not is_running)
         self.pause_btn.setEnabled(is_running)
         self.stop_btn.setEnabled(is_running)
-        self.pause_btn.setText("Duraklat")
+        self.pause_btn.setText(tr("btn_pause"))
     
     def set_paused(self, is_paused: bool):
         """Update pause button text."""
-        self.pause_btn.setText("Devam Et" if is_paused else "Duraklat")
-
-
+        self.pause_btn.setText(tr("btn_resume") if is_paused else tr("btn_pause"))
+    
+    def retranslate_ui(self):
+        """Retranslate all UI strings (called when language changes)."""
+        self._subtitle.setText(tr("timer_seconds"))
+        self.start_btn.setText(tr("btn_start"))
+        self.pause_btn.setText(tr("btn_pause"))
+        self.stop_btn.setText(tr("btn_stop"))
+        self.status_label.setText(tr("timer_ready"))
+        self._overlay_label.setText(tr("overlay_ingame"))
+        self.overlay_btn.setText(tr("btn_show"))

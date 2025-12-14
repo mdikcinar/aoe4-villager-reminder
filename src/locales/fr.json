@@ -1,0 +1,65 @@
+{
+  "app_name": "AoE4 Villager Reminder",
+  "running_in_background": "Fonctionne en arrière-plan",
+  
+  "tab_timer": "Minuteur",
+  "tab_settings": "Paramètres",
+  "tab_statistics": "Statistiques",
+  
+  "timer_seconds": "secondes",
+  "timer_ready": "Prêt",
+  "timer_running": "En cours",
+  "timer_paused": "En pause",
+  "timer_stopped": "Arrêté",
+  
+  "btn_start": "Démarrer",
+  "btn_pause": "Pause",
+  "btn_resume": "Reprendre",
+  "btn_stop": "Arrêter",
+  "btn_show": "Afficher",
+  "btn_hide": "Masquer",
+  "btn_test": "Test",
+  
+  "overlay_title": "Villager",
+  "overlay_ingame": "Overlay en jeu",
+  "overlay_lock_tooltip": "Verrouiller/déverrouiller la position",
+  
+  "settings_timer": "Minuteur",
+  "settings_interval": "Intervalle:",
+  "settings_detection": "Détection du jeu",
+  "settings_method": "Méthode:",
+  "settings_api_mode": "API (aoe4world)",
+  "settings_manual_mode": "Manuel",
+  "settings_profile_id": "ID de profil:",
+  "settings_profile_hint": "aoe4world.com → Allez sur votre profil → Copiez le numéro de l'URL",
+  
+  "settings_notifications": "Notifications",
+  "settings_sound": "Son",
+  "settings_popup": "Notification popup",
+  
+  "settings_interface": "Interface",
+  "settings_always_on_top": "Toujours au premier plan",
+  "settings_auto_start": "Démarrage automatique",
+  "settings_auto_start_tooltip": "Démarrer automatiquement le minuteur quand le jeu est détecté",
+  "settings_auto_overlay": "Affichage automatique de l'overlay",
+  "settings_auto_overlay_tooltip": "Afficher automatiquement l'overlay quand le jeu démarre",
+  "settings_language": "Langue",
+  
+  "tray_show": "Afficher",
+  "tray_overlay_toggle": "Basculer l'overlay",
+  "tray_start": "Démarrer",
+  "tray_stop": "Arrêter",
+  "tray_quit": "Quitter",
+  
+  "stats_title": "Statistiques",
+  "stats_session": "Session actuelle",
+  "stats_total": "Total",
+  "stats_alerts": "Alertes",
+  "stats_time": "Temps",
+  
+  "game_detected": "Jeu détecté",
+  "game_ended": "Jeu terminé",
+  "waiting_for_game": "En attente du jeu...",
+  "checking_api": "Vérification de l'API..."
+}
+

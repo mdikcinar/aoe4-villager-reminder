@@ -23,6 +23,8 @@ class Config:
         "always_on_top": False,
         "start_minimized": False,
         "auto_start_detection": True,
+        "auto_show_overlay": True,
+        "language": None,  # None means auto-detect
     }
     
     def __new__(cls):

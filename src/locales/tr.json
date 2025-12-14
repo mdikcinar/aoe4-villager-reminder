@@ -1,0 +1,65 @@
+{
+  "app_name": "AoE4 Villager Reminder",
+  "running_in_background": "Arka planda çalışıyor",
+  
+  "tab_timer": "Timer",
+  "tab_settings": "Ayarlar",
+  "tab_statistics": "İstatistik",
+  
+  "timer_seconds": "saniye",
+  "timer_ready": "Hazır",
+  "timer_running": "Çalışıyor",
+  "timer_paused": "Duraklatıldı",
+  "timer_stopped": "Durduruldu",
+  
+  "btn_start": "Başlat",
+  "btn_pause": "Duraklat",
+  "btn_resume": "Devam Et",
+  "btn_stop": "Durdur",
+  "btn_show": "Göster",
+  "btn_hide": "Gizle",
+  "btn_test": "Test",
+  
+  "overlay_title": "Villager",
+  "overlay_ingame": "Oyun İçi Overlay",
+  "overlay_lock_tooltip": "Konumu kilitle/aç",
+  
+  "settings_timer": "Zamanlayıcı",
+  "settings_interval": "Aralık:",
+  "settings_detection": "Oyun Algılama",
+  "settings_method": "Yöntem:",
+  "settings_api_mode": "API (aoe4world)",
+  "settings_manual_mode": "Manuel",
+  "settings_profile_id": "Profile ID:",
+  "settings_profile_hint": "💡 aoe4world.com → Profilinize gidin → URL'deki sayıyı kopyalayın",
+  
+  "settings_notifications": "Bildirimler",
+  "settings_sound": "Ses",
+  "settings_popup": "Popup bildirimi",
+  
+  "settings_interface": "Arayüz",
+  "settings_always_on_top": "Her zaman üstte",
+  "settings_auto_start": "Otomatik başla",
+  "settings_auto_start_tooltip": "Oyun algılandığında timer otomatik başlasın",
+  "settings_auto_overlay": "Overlay otomatik aç",
+  "settings_auto_overlay_tooltip": "Oyun başladığında overlay otomatik açılsın",
+  "settings_language": "Dil",
+  
+  "tray_show": "Göster",
+  "tray_overlay_toggle": "Overlay Aç/Kapat",
+  "tray_start": "Başlat",
+  "tray_stop": "Durdur",
+  "tray_quit": "Çıkış",
+  
+  "stats_title": "İstatistikler",
+  "stats_session": "Bu Oturum",
+  "stats_total": "Toplam",
+  "stats_alerts": "Uyarılar",
+  "stats_time": "Süre",
+  
+  "game_detected": "Oyun algılandı",
+  "game_ended": "Oyun bitti",
+  "waiting_for_game": "Oyun bekleniyor...",
+  "checking_api": "API kontrol ediliyor..."
+}
+

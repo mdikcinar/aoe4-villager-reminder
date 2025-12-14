@@ -1,0 +1,65 @@
+{
+  "app_name": "AoE4 Villager Reminder",
+  "running_in_background": "Running in background",
+  
+  "tab_timer": "Timer",
+  "tab_settings": "Settings",
+  "tab_statistics": "Statistics",
+  
+  "timer_seconds": "seconds",
+  "timer_ready": "Ready",
+  "timer_running": "Running",
+  "timer_paused": "Paused",
+  "timer_stopped": "Stopped",
+  
+  "btn_start": "Start",
+  "btn_pause": "Pause",
+  "btn_resume": "Resume",
+  "btn_stop": "Stop",
+  "btn_show": "Show",
+  "btn_hide": "Hide",
+  "btn_test": "Test",
+  
+  "overlay_title": "Villager",
+  "overlay_ingame": "In-Game Overlay",
+  "overlay_lock_tooltip": "Lock/unlock position",
+  
+  "settings_timer": "Timer",
+  "settings_interval": "Interval:",
+  "settings_detection": "Game Detection",
+  "settings_method": "Method:",
+  "settings_api_mode": "API (aoe4world)",
+  "settings_manual_mode": "Manual",
+  "settings_profile_id": "Profile ID:",
+  "settings_profile_hint": "aoe4world.com → Go to your profile → Copy the number from URL",
+  
+  "settings_notifications": "Notifications",
+  "settings_sound": "Sound",
+  "settings_popup": "Popup notification",
+  
+  "settings_interface": "Interface",
+  "settings_always_on_top": "Always on top",
+  "settings_auto_start": "Auto start",
+  "settings_auto_start_tooltip": "Automatically start timer when game is detected",
+  "settings_auto_overlay": "Auto show overlay",
+  "settings_auto_overlay_tooltip": "Automatically show overlay when game starts",
+  "settings_language": "Language",
+  
+  "tray_show": "Show",
+  "tray_overlay_toggle": "Toggle Overlay",
+  "tray_start": "Start",
+  "tray_stop": "Stop",
+  "tray_quit": "Quit",
+  
+  "stats_title": "Statistics",
+  "stats_session": "Current Session",
+  "stats_total": "Total",
+  "stats_alerts": "Alerts",
+  "stats_time": "Time",
+  
+  "game_detected": "Game detected",
+  "game_ended": "Game ended",
+  "waiting_for_game": "Waiting for game...",
+  "checking_api": "Checking API..."
+}
+
