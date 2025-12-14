@@ -1,6 +1,6 @@
 # Application constants
 APP_NAME = "AoE4 Villager Reminder"
-APP_VERSION = "1.0.0"
+APP_VERSION = "1.0.1"
 
 # Timer defaults
 DEFAULT_INTERVAL = 25  # seconds (villager production time)
